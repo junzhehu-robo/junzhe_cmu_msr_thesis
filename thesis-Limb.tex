@@ -3,7 +3,7 @@
 \chapter{In-Situ Self-Pose Estimation for Modular Continuum Robots}
 \label{chapLimbs}
 
-Continuum robots have gained attention for their compliance and adaptability compared to rigid-link robots, enabling safe interaction and smooth, continuous deformation inspired by biological structures such as octopus arms and elephant trunks ~\cite{russo2023continuum}. These traits support dexterous manipulation and navigation in confined or cluttered spaces, making continuum robots well suited for search and rescue ~\cite{yamauchi2022development}, minimally invasive surgery ~\cite{burgner2015continuum}, inspection ~\cite{wang2021design}, and human--robot interaction ~\cite{abah2021multi}.
+Continuum robots have gained attention for their compliance and adaptability compared to rigid-link robots, enabling safe interaction and smooth, continuous deformation inspired by biological structures such as octopus arms and elephant trunks~\cite{russo2023continuum}. These traits support dexterous manipulation and navigation in confined or cluttered spaces, making continuum robots well suited for search and rescue~\cite{yamauchi2022development}, minimally invasive surgery~\cite{burgner2015continuum}, inspection~\cite{wang2021design}, and human--robot interaction~\cite{abah2021multi}.
 
 \begin{figure}[!t]
 \centering
@@ -14,7 +14,7 @@ Continuum robots have gained attention for their compliance and adaptability com
 
 Most existing continuum robots are still task-specific and built in an ad hoc way, with fixed geometry, actuation, and mechanical properties that are difficult to reconfigure. As a result, adapting them to new tasks often requires major redesign and refabrication, limiting scalability and broader adoption. This lack of modularity stands in contrast to the versatility that continuum robots are theoretically capable of providing.
 
-Other major barriers to the practical deployment of continuum robots are sensing and state estimation. Unlike rigid robots with a small set of joint variables, continuum robots have effectively infinite degrees of freedom, making shape and pose estimation difficult. Many existing approaches therefore rely on external infrastructure such as motion capture systems, cameras, or tracking rigs ~\cite{sincak2024sensing, lu2023image}. While these methods are effective in laboratory environments, they increase cost and complexity and limit deployment outside controlled settings.
+Other major barriers to the practical deployment of continuum robots are sensing and state estimation. Unlike rigid robots with a small set of joint variables, continuum robots have effectively infinite degrees of freedom, making shape and pose estimation difficult. Many existing approaches therefore rely on external infrastructure such as motion capture systems, cameras, or tracking rigs~\cite{sincak2024sensing, lu2023image}. While these methods are effective in laboratory environments, they increase cost and complexity and limit deployment outside controlled settings.
 
 To address these limitations, this chapter presents a self-contained modular continuum robotic platform that combines mechanical reconfigurability with embedded proprioceptive sensing. The system is designed around modular continuum joints that can be rapidly assembled, replaced, or reconfigured to meet different task requirements without sacrificing the smooth shape morphing and compliance that make continuum robots attractive. The mechanical behavior of each joint is programmable through interchangeable elements with precomputed stiffness characteristics, enabling users to specify desired robot shapes and deformation profiles in a principled manner.
 
@@ -53,7 +53,7 @@ Because the IMU operates on 1.8~V logic while the rest of the circuit operates o
 
 The modular nature of the design enables the use of joints made from a wide variety of materials and longitudinal and cross-sectional form factors to balance local bending, axial, and torsional stiffness. In this initial study, 3D-printed TPU joints with a simple hourglass-like shape were used, whose stiffness is dictated largely by the minimum neck diameter. As shown in Fig.~\ref{fig:overall}, joints of varying neck diameters can be combined to produce shapes with non-uniform curvature.
 
-The bending stiffness of the joints connecting adjacent rigid segments was estimated using finite-element studies performed in ANSYS Mechanical. Mechanical properties of the TPU joints were determined based on uniaxial tension testing using specimens and procedures comparable to ASTM Standard D412 ~\cite{ASTMD412-2021}. For neck diameters ranging from 3 to 7~mm, a single robot segment was analyzed using a three-dimensional, static, and geometrically nonlinear model subjected to a 30-degree bend angle on one end and a fixed boundary condition on the other.
+The bending stiffness of the joints connecting adjacent rigid segments was estimated using finite-element studies performed in ANSYS Mechanical. Mechanical properties of the TPU joints were determined based on uniaxial tension testing using specimens and procedures comparable to ASTM Standard D412~\cite{ASTMD412-2021}. For neck diameters ranging from 3 to 7~mm, a single robot segment was analyzed using a three-dimensional, static, and geometrically nonlinear model subjected to a 30-degree bend angle on one end and a fixed boundary condition on the other.
 
 The reaction moment \(M\) at the fixed end was determined at every three degrees of bend angle \(\theta\). The bending or rotational stiffness of the joint, denoted by \(k\), was determined by fitting a linear relationship between reaction moment and bend angle according to
 \begin{equation}
@@ -74,7 +74,7 @@ This provides a simple and practical way to pre-program the shape response of th
 
 \section{Pose Estimation}
 
-In contrast to previous continuum-robot self-pose sensing approaches based on distributed strain gauges or embedded cameras and accelerometers ~\cite{fang_design_2023,lilge_continuum_2022,stella_soft_2024}, the system in this chapter uses magnetic sensing by embedding magnetometers and field sources within the robot, similar in spirit to ~\cite{baaij_learning_2023}. Unlike ~\cite{baaij_learning_2023}, which uses permanent magnets, the present design employs electromagnetic coils that can be selectively activated for sensing and deactivated to reduce inter-segment interference.
+In contrast to previous continuum-robot self-pose sensing approaches based on distributed strain gauges or embedded cameras and accelerometers~\cite{fang_design_2023,lilge_continuum_2022,stella_soft_2024}, the system in this chapter uses magnetic sensing by embedding magnetometers and field sources within the robot, similar in spirit to~\cite{baaij_learning_2023}. Unlike~\cite{baaij_learning_2023}, which uses permanent magnets, the present design employs electromagnetic coils that can be selectively activated for sensing and deactivated to reduce inter-segment interference.
 
 \begin{figure*}[!t]
     \centering
