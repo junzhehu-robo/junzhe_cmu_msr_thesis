@@ -32,14 +32,14 @@ The main contributions of this chapter are summarized as follows:
 
 The remainder of this chapter is organized as follows. Section~\ref{sec:POSM_mechanism} introduces the POSM hardware and its implementation. Section~\ref{sec:POSM_modeling} presents the variational mechanics model used for simulation and optimization. Section~\ref{sec:POSM_characterization} characterizes joint stiffness, response time, and the correspondence between simulation and hardware morphology. Section~\ref{sec:POSM_optimization} formulates the stiffness-optimization problem for efficient swimming. Section~\ref{sec:POSM_experiments} presents propulsion experiments for drag-based swimming, BCF swimming, and untethered locomotion. Finally, Section~\ref{sec:POSM_discussion} discusses the physical interpretation, limitations, and implications of the proposed framework.
 
-\section{POSM: Mechanism Design and Implementation}
+\section{Mechanism Design and Implementation}
 \label{sec:POSM_mechanism}
 
 \subsection{Mechanism Design}
 
 \begin{figure}[!t]
     \centering
-    \includegraphics[width=0.6\textwidth]{figs/spatio/Figure1_v21.pdf}
+    \includegraphics[width=0.63\textwidth]{figs/spatio/Figure1_v21.pdf}
      \caption{A system overview of the programmable online stiffness modulation (POSM) mechanism, which serves as the hardware embodiment of the proposed POSM framework. (a) Side view of the POSM module. (b) The POSM module is a three-layer, modular, multi-joint arm. The top and bottom layers are rigid-link frames (gray). The middle layer contains sliding-laminate flexures (red), a rigid linear guide or constraint (green) that limits the slider to one-degree-of-freedom translation, and passive joints (purple) that define the revolute axes. Each joint can employ a different laminate geometry to realize a different stiffness range. (c) Joint stiffness modulation of the POSM, where a flexure linearly translates across the joint to bring it from a ``flexible'' state to a ``stiff'' state. (d) Top view. Integration of the POSM in an untethered, fish-inspired swimmer that can perform both body-caudal-fin (BCF) and pectoral-fin (drag-based) locomotion.}
     \label{fig:stifin_overview}
 \end{figure}
