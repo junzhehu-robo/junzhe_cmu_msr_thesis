@@ -66,7 +66,7 @@ Aquatic animals have attracted considerable attention from biomechanics and robo
 \centering
 \small
 \renewcommand{\arraystretch}{1.2}
-\begin{tabular}{@{}lcccccl@{}}
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}lcccccl@{}}
 \hline
 \textbf{Platform} & \textbf{Type} & \textbf{Hardware} & \textbf{Modular} & \textbf{Simulator} & \textbf{Model} & \textbf{Pattern} \\
 \hline
@@ -78,7 +78,7 @@ Li et al.\ (2021a)          & Soft        & \checkmark & $\times$   & \checkmark
 Genesis Authors (2024)      & Soft, Rigid & $\times$   & $\times$   & \checkmark & MPM, SPH                    & NA \\
 \textbf{SwimGym (Ours)}     & Rigid       & \checkmark & \checkmark & \checkmark & Navier--Stokes + rigid-body & Anguilliform \\
 \hline
-\end{tabular}
+\end{tabular*}
 \end{table}
 
 Therefore, we propose \textbf{SwimGym}: a low-cost, open-source robot platform specifically designed for bio-inspired swimming research as shown in Fig.~\ref{fig:swimgym_overview}. SwimGym comprises an untethered swimming robot, a portable hardware testbed, and a corresponding simulation environment as shown in Fig.~\ref{fig:swimgym_overview}. Utilizing COTS (commercial-off-the-shelf) components and 3D-printed parts, we design the robot from scratch to be modular and amenable to fabrication in house for under \$200 USD. In addition, a portable and reproducible testbed is provided for convenient testing of the robot in a fluid-filled environment with vision-based tracking. Finally, we utilize a unified-multiphysics approach to create a physics-based simulator of the test environment~\cite{lee2025unifiedframeworksimulatingstronglycoupled}. To showcase SwimGym's viability for swimming locomotion research, we demonstrate our robot achieving forward swimming in both simulation and on hardware. In future work, we plan to open-source the hardware design, experimental setup, and simulation code for use in downstream learning and controls tasks. In summary, SwimGym offers:
