@@ -13,11 +13,56 @@ The robot consists of five rigid planar links connected by four actuated revolut
 
 The hull is sealed for surface swimming, with the electronics housed in a watertight cavity in the head link and the actuation wiring routed along the body. This combination of modular links and a self-contained head module enables the same robot to be deployed for repeated trials with minimal manual intervention between runs.
 
+The mass and rotational inertia of each link type are summarized in Table~\ref{tab:eel_inertia}. These properties are obtained from the CAD model of the as-built parts and are used directly as inputs to the variational dynamics and fluid--robot simulation reported in Chapter~\ref{chapControl}.
+
+\begin{table}[t]
+\centering
+\caption{Mass and inertial properties of SwimGym eel robot.}
+\label{tab:eel_inertia}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{lcc}
+\hline
+\textbf{Link Type} & \textbf{Mass (g)} & \textbf{Moment of Inertia (g$\cdot$cm$^2$)} \\
+\hline
+Head & 192 & 2435.99 \\
+Body & 140 & 1483.49 \\
+\hline
+\end{tabular}
+\end{table}
+
 \subsection{Electronics Design}
 
 Each joint is driven by a Dynamixel XC330 servomotor that accepts position commands generated from a parameterized gait. The four servos are coordinated by an OpenRB-150 control board housed in the head link, which exposes a USB and wireless interface for sending high-level gait parameters such as frequency, amplitude, and phase offset. The board also collects feedback from the integrated servo encoders and from onboard inertial sensing, providing multi-sensory feedback that supports both offline gait tuning and future closed-loop control studies.
 
 Power is supplied by an onboard lithium battery sized for the duration of a swimming trial, and a regulated rail isolates the actuation bus from the microcontroller and sensing electronics to limit electrical noise during high-current servo transients. The control loop runs at a rate sufficient to track the prescribed joint trajectories during both steady undulation and the rapid joint excursions characteristic of C-start maneuvers.
+
+The complete bill of materials for a representative two-link configuration of the platform, covering both the structural and electronic components, is summarized in Table~\ref{tab:eel_bom}. The two prices listed for the servo line item and for the total correspond to the higher-torque XC330 and the lighter XL330 variants, respectively. The overall build remains within the budget typical of low-cost research-grade swimming platforms while still providing programmable joint actuation and onboard sensing.
+
+\begin{table}[t]
+\centering
+\caption{Bill of materials for SwimGym eel robot (2-link).}
+\label{tab:eel_bom}
+\renewcommand{\arraystretch}{1.15}
+\small
+\begin{tabular}{cllcr}
+\hline
+\textbf{No.} & \textbf{Part Description} & \textbf{Material} & \textbf{Quantity} & \textbf{Price (USD)} \\
+\hline
+1 & 3D-printing filament                       & PET-CF (3D printed) & 1        & \$44.99 \\
+2 & 1-mm-thick plate                           & Fiberglass          & 1        & \$9.99 \\
+3 & 7.4\,V 900\,mAh LiPo battery               & Lithium Polymer     & 1        & \$9.90 \\
+4 & PCB board                                  & FR-4 PCB            & 1        & \$3.00 \\
+5 & 25.4-cm-long JST wires                     & Wires               & 3        & \$1.41 \\
+5 & EHR-3 connector                            & Plastic             & 2        & \$0.20 \\
+5 & DC-to-DC converter (OKR-T/6-W12-C)         & Electronics         & 1        & \$9.24 \\
+6 & OpenRB-150 microcontroller                 & Electronics         & 1        & \$28.64 \\
+7 & XC330 / XL330-M288-T servos                & NA                  & 1        & \$103.39 / \$27.49 \\
+8 & Fasteners (screws, helicoils, pins, etc.)  & Stainless Steel     & Multiple & \$15.40 \\
+\hline
+\textbf{Total} & & & & \textbf{\$226.16 / \$150.26} \\
+\hline
+\end{tabular}
+\end{table}
 
 \subsection{Experimental Setup}
 
