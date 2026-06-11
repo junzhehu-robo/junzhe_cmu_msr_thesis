@@ -58,8 +58,29 @@ Bioinspired swimming has gained considerable attention for efficient propulsion 
 \end{figure}
 
  
-Aquatic animals have attracted considerable attention from biomechanics and robotics researchers due to their efficient and rapid locomotion in water~\cite{breder1926locomotion, Fish2014, van2019scaling, zhu2019tuna, Prakash_2024, wang2020development}. For example, the efficient, stable swimming of cephalopods and aquatic insects inspired various drag-based~\cite{kim2024development, kwak2023development, kwak2017design, hu2024design} mechanisms for robotic swimming. However, the diversity in actuator-mechanism design, specialized fabrication needs, and modeling difficulties pose significant challenges for reproducing these systems, which span different propulsion modes~\cite{hartmann2025highly, wu2024multimodal}. Furthermore, bio-inspired swimming involves complex fluid-robot interactions that are difficult to model for sim-to-real studies commonly found in robotics~\cite{angelidis2022gazebo, lee2023aquarium}.
- 
+Aquatic animals have attracted considerable attention from biomechanics and robotics researchers due to their efficient and rapid locomotion in water~\cite{breder1926locomotion, Fish2014, van2019scaling, zhu2019tuna, Prakash_2024, wang2020development}. For example, the efficient, stable swimming of cephalopods and aquatic insects inspired various drag-based~\cite{kim2024development, kwak2023development, kwak2017design, hu2024design} mechanisms for robotic swimming. However, the diversity in actuator-mechanism design, specialized fabrication needs, and modeling difficulties pose significant challenges for reproducing these systems, which span different propulsion modes~\cite{hartmann2025highly, wu2024multimodal}. Furthermore, bio-inspired swimming involves complex fluid-robot interactions that are difficult to model for sim-to-real studies commonly found in robotics~\cite{angelidis2022gazebo, lee2023aquarium}. Table~\ref{tab:swimgym_comparison} summarizes representative open-source swimming robot platforms across hardware, modularity, simulator availability, modeling fidelity, and propulsion pattern, and contrasts them with the platform proposed in this chapter.
+
+\begin{table}[t]
+\caption{A comparison of open-source swimming robot platforms.}
+\label{tab:swimgym_comparison}
+\centering
+\small
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{@{}lcccccl@{}}
+\hline
+\textbf{Platform} & \textbf{Type} & \textbf{Hardware} & \textbf{Modular} & \textbf{Simulator} & \textbf{Model} & \textbf{Pattern} \\
+\hline
+Kopman and Porfiri (2013)   & Rigid       & \checkmark & \checkmark & $\times$   & NA                          & BCF \\
+Knizhnik and Yim (2020)     & Rigid       & \checkmark & \checkmark & $\times$   & NA                          & Drag \\
+Angelidis et al.\ (2022)    & Rigid       & $\times$   & $\times$   & \checkmark & SPH                         & BCF \\
+Kwak et al.\ (2023)         & Soft        & \checkmark & $\times$   & $\times$   & NA                          & Drag \\
+Li et al.\ (2021a)          & Soft        & \checkmark & $\times$   & \checkmark & Rigid-body physics          & BCF \\
+Genesis Authors (2024)      & Soft, Rigid & $\times$   & $\times$   & \checkmark & MPM, SPH                    & NA \\
+\textbf{SwimGym (Ours)}     & Rigid       & \checkmark & \checkmark & \checkmark & Navier--Stokes + rigid-body & Anguilliform \\
+\hline
+\end{tabular}
+\end{table}
+
 Therefore, we propose \textbf{SwimGym}: a low-cost, open-source robot platform specifically designed for bio-inspired swimming research as shown in Fig.~\ref{fig:swimgym_overview}. SwimGym comprises an untethered swimming robot, a portable hardware testbed, and a corresponding simulation environment as shown in Fig.~\ref{fig:swimgym_overview}. Utilizing COTS (commercial-off-the-shelf) components and 3D-printed parts, we design the robot from scratch to be modular and amenable to fabrication in house for under \$200 USD. In addition, a portable and reproducible testbed is provided for convenient testing of the robot in a fluid-filled environment with vision-based tracking. Finally, we utilize a unified-multiphysics approach to create a physics-based simulator of the test environment~\cite{lee2025unifiedframeworksimulatingstronglycoupled}. To showcase SwimGym's viability for swimming locomotion research, we demonstrate our robot achieving forward swimming in both simulation and on hardware. In future work, we plan to open-source the hardware design, experimental setup, and simulation code for use in downstream learning and controls tasks. In summary, SwimGym offers:
 \begin{itemize}
     \item An untethered, insect-inspired swimming robot with a low build cost and entry-level fabrication process.
