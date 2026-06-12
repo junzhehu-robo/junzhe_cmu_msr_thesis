@@ -52,7 +52,7 @@
 \vglue\@cutoutvskip
 \begin{center}
 %\begin{minipage}[t]{4.875in}   % must be a minipage due to \thanks
-\begin{minipage}[t]{5.4in}      % hackery (widened for longer thesis title)
+\begin{minipage}[t]{4.8in}      % hackery
 \vbox to 2in{
 \vfill
 \begin{center}
