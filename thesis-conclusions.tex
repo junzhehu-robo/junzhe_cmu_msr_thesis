@@ -40,6 +40,12 @@ This thesis therefore treats sensing as an enabling layer for future closed-loop
 
 The continuum-robot sensing work presented in this thesis provides one example of this broader principle. Although that platform is not an aquatic swimmer, it demonstrates how modular mechanical design and embedded sensing can be combined to estimate robot configuration without relying entirely on external infrastructure. A similar philosophy can be applied to future aquatic platforms: distributed local sensing can be integrated with variable-stiffness mechanisms and differentiable fluid--robot models to enable feedback policies that respond to changing flow environments.
 
+\section{Future Directions: Flow-Aware Control}
+
+A promising future direction is to develop flow-aware control frameworks for bio-inspired swimmers operating in complex multiphysics environments. Rather than optimizing locomotion using the full simulated fluid--robot state, future work can investigate how a swimmer can infer and exploit the surrounding flow through onboard sensing, such as local pressure measurements. These partial observations are especially important for physical hardware, where full-field flow information is unavailable and locomotion emerges from coupled interactions among compliant body structures, actuation, sensing, and fluid dynamics.
+
+By combining data-driven control with physics-based or differentiable fluid--robot simulation, it may be possible to train policies that are both physically grounded and robust to environmental disturbances, modeling mismatch, and unsteady flow structures. This would shift the role of simulation from gait design alone toward the co-design of sensing, control, and morphology, enabling robotic swimmers that can adaptively navigate and maneuver by feeling the fluid around them.
+
 \section{Outlook}
 
 Taken together, the results of this thesis show that programmable compliance, variational modeling, optimization-based propulsion, embodied platform design, and onboard sensing form a coherent design space for bio-inspired aquatic robots. The main lesson is that morphology, dynamics, and control should not be optimized independently. Instead, the physical body and the surrounding fluid should be treated as part of the computation that produces locomotion.
