@@ -7,9 +7,16 @@
 
 The first platform developed in this thesis is a modular undulatory swimming robot intended to support both steady forward swimming and highly transient maneuvers such as C-start escape turns. The robot is realized as a five-link planar eel-like body whose link length, joint compliance, and onboard sensing can be reconfigured for different experimental needs. This modular mechatronic architecture serves a dual purpose: it provides a reusable hardware substrate for gait optimization and sim-to-real studies, and it acts as the physical reference against which the strongly coupled fluid--robot multiphysics simulator developed in Chapter~\ref{chapControl} is validated. In what follows, we describe the mechanical structure, electronics, experimental setup, and the two representative swimming regimes used throughout the thesis.
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figs/hardware/Fig1.png}
+    \caption{A low-cost, easy-to-fabricate eel robot for accessible bioinspired robotic swimming research. The eel robot consists of modular links that are made up of buoyant bodies that house sensitive electronics with 1-mm-thick fins attached beneath to maintain a thin-plate submerged profile. The robot hardware is fully untethered with an onboard battery, a Robotis OpenRB-150 microcontroller, and Dynamixel XC-330-M288-T servo motors to actuate the joints.}
+    \label{fig:eel_hardware}
+\end{figure}
+
 \subsection{Modular Structure Design}
 
-The robot consists of five rigid planar links connected by four actuated revolute joints, with the head link instrumented for vision-based pose tracking. Each link is 3D-printed from a stiff polymer to keep the body lightweight while preserving rigid-body behavior under hydrodynamic loading, and adjacent links are joined through a modular interface that fixes a target link length while allowing the joint to be quickly replaced. This modularity allows the body kinematics to be reconfigured without rebuilding the platform: link length and joint stiffness can be varied to study how morphology shapes the traveling-wave gait and the trailing-edge amplitude during BCF undulation, and the same chassis supports the C-start configuration used for transient maneuvers.
+The robot consists of five rigid planar links connected by four actuated revolute joints, with the head link instrumented for vision-based pose tracking. As shown in Fig.~\ref{fig:eel_hardware}, each link combines a buoyant electronics housing with a thin submerged fin so that the robot remains self-contained while approximating the planar body profile assumed by the simulator. Each link is 3D-printed from a stiff polymer to keep the body lightweight while preserving rigid-body behavior under hydrodynamic loading, and adjacent links are joined through a modular interface that fixes a target link length while allowing the joint to be quickly replaced. This modularity allows the body kinematics to be reconfigured without rebuilding the platform: link length and joint stiffness can be varied to study how morphology shapes the traveling-wave gait and the trailing-edge amplitude during BCF undulation, and the same chassis supports the C-start configuration used for transient maneuvers.
 
 The hull is sealed for surface swimming, with the electronics housed in a watertight cavity in the head link and the actuation wiring routed along the body. This combination of modular links and a self-contained head module enables the same robot to be deployed for repeated trials with minimal manual intervention between runs.
 
@@ -71,11 +78,29 @@ The robot swims at the free surface of a still-water pool, which keeps the platf
 
 For each trial, gait parameters are uploaded to the robot, a calibration image of the AprilTags is recorded against a known reference, and the swimming sequence is executed in open loop. The fluid is allowed to settle between trials so that residual flow from previous strokes does not influence subsequent measurements. This setup enables repeatable measurements across amplitude sweeps for forward swimming as well as well-controlled initial conditions for C-start maneuvers.
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figs/hardware/Fig2.png}
+    \caption{Experiment setup for sim-to-real validation of bioinspired swimming, where an eel robot is navigating through a walled cavity of initially still water measuring $122 \times 122$\,cm. In this work, we parameterize the robot configuration in maximum coordinates where all link configurations, $[x_i, y_i, \bar{\theta}_i, \theta_i]$, are specified. Joint, i.e., motor, angles between links $i$ and $i+1$ are denoted by $\theta_i$. The walled cavity is recreated in a pool of equal dimensions, while an eel robot is fully realized on real-world hardware. The robot hardware is fully untethered with an onboard battery, and the head-link configuration is tracked by a top-down-facing camera via AprilTags~\cite{Olson2011}.}
+    \label{fig:eel_experiment_setup}
+\end{figure}
+
+The resulting experiment is summarized in Fig.~\ref{fig:eel_experiment_setup}. Matching the physical pool dimensions to the simulated walled cavity gives the simulator and hardware the same boundary geometry, while the maximum-coordinate representation provides a direct correspondence between the simulated link states and the camera-tracked robot configuration. This alignment between hardware, tracking, and model coordinates is essential for comparing open-loop trajectories without introducing additional registration steps.
+
 \subsection{Forward Swimming}
 
 Steady forward swimming is generated by a sinusoidal traveling-wave joint pattern in which each joint follows a sinusoid at a common frequency with a fixed phase offset along the body. The amplitude of the traveling wave is varied to span a representative range of BCF-style gaits, and twenty independent trials are recorded per amplitude to capture run-to-run variability.
 
 For each gait, the measured head-link position and heading are extracted from the AprilTag time series and compared against the prediction of the differentiable fluid--robot simulator developed in Chapter~\ref{chapControl}. This comparison provides a direct test of how well a strongly coupled simulator can reproduce sustained undulatory swimming on real hardware, and forms the experimental anchor for the forward-swimming validation reported in that chapter.
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\linewidth]{figs/hardware/Fig3.pdf}
+    \caption{Time-lapse sequences showing a multi-link eel robot executing an undulating gait with a $40^\circ$ joint-angle amplitude to achieve forward swimming. The top row (black) demonstrates the real-world robot, while the middle row (green) is our method and the bottom row (orange) is the smoothed-particle-hydrodynamics-based (SPH-based) baseline. While our cell-based method is able to closely follow the forward swimming seen in the real world, the SPH-based baseline achieves comparatively little forward progress.}
+    \label{fig:eel_forward_swimming}
+\end{figure}
+
+Figure~\ref{fig:eel_forward_swimming} illustrates a representative forward-swimming trial at a $40^\circ$ joint-angle amplitude. The physical robot advances substantially over the sequence, and the unified multiphysics simulation reproduces this forward displacement with similar body kinematics. In contrast, the SPH-based baseline remains much closer to its initial position, highlighting that the strongly coupled cell-based formulation better captures the propulsion generated by the prescribed undulatory gait.
 
 \subsection{C-Start Agile Escape Maneuver}
 
@@ -95,8 +120,6 @@ Bioinspired swimming has gained considerable attention for efficient propulsion 
  
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- 
-
  
 Aquatic animals have attracted considerable attention from biomechanics and robotics researchers due to their efficient and rapid locomotion in water~\cite{breder1926locomotion, Fish2014, van2019scaling, zhu2019tuna, Prakash_2024, wang2020development}. For example, the efficient, stable swimming of cephalopods and aquatic insects inspired various drag-based~\cite{kim2024development, kwak2023development, kwak2017design, hu2024design} mechanisms for robotic swimming. However, the diversity in actuator-mechanism design, specialized fabrication needs, and modeling difficulties pose significant challenges for reproducing these systems, which span different propulsion modes~\cite{hartmann2025highly, wu2024multimodal}. Furthermore, bio-inspired swimming involves complex fluid-robot interactions that are difficult to model for sim-to-real studies commonly found in robotics~\cite{angelidis2022gazebo, lee2023aquarium}. Table~\ref{tab:swimgym_comparison} summarizes representative open-source swimming robot platforms across hardware, modularity, simulator availability, modeling fidelity, and propulsion pattern, and contrasts them with the platform proposed in this chapter.
 
@@ -122,7 +145,7 @@ Genesis Authors (2024)      & Soft, Rigid & $\times$   & $\times$   & \checkmark
 }
 \end{table}
 
-Therefore, we propose \textbf{SwimGym}: a low-cost, open-source robot platform specifically designed for bio-inspired swimming research as shown in Fig.~\ref{fig:swimgym_overview}. SwimGym comprises an untethered swimming robot, a portable hardware testbed, and a corresponding simulation environment as shown in Fig.~\ref{fig:swimgym_overview}. Utilizing COTS (commercial-off-the-shelf) components and 3D-printed parts, we design the robot from scratch to be modular and amenable to fabrication in house for under \$200 USD. In addition, a portable and reproducible testbed is provided for convenient testing of the robot in a fluid-filled environment with vision-based tracking. Finally, we utilize a unified-multiphysics approach to create a physics-based simulator of the test environment~\cite{lee2025unifiedframeworksimulatingstronglycoupled}. To showcase SwimGym's viability for swimming locomotion research, we demonstrate our robot achieving forward swimming in both simulation and on hardware. In future work, we plan to open-source the hardware design, experimental setup, and simulation code for use in downstream learning and controls tasks. In summary, SwimGym offers:
+Therefore, we propose \textbf{SwimGym}: a low-cost, open-source robot platform specifically designed for bio-inspired swimming research. SwimGym comprises an untethered swimming robot, a portable hardware testbed, and a corresponding simulation environment. Utilizing COTS (commercial-off-the-shelf) components and 3D-printed parts, we design the robot from scratch to be modular and amenable to fabrication in house for under \$200 USD. In addition, a portable and reproducible testbed is provided for convenient testing of the robot in a fluid-filled environment with vision-based tracking. Finally, we utilize a unified-multiphysics approach to create a physics-based simulator of the test environment~\cite{lee2025unifiedframeworksimulatingstronglycoupled}. To showcase SwimGym's viability for swimming locomotion research, we demonstrate our robot achieving forward swimming in both simulation and on hardware. In future work, we plan to open-source the hardware design, experimental setup, and simulation code for use in downstream learning and controls tasks. In summary, SwimGym offers:
 \begin{itemize}
     \item An untethered, insect-inspired swimming robot with a low build cost and entry-level fabrication process.
     \item A portable, low-cost experimental testbed for conducting real-world swimming locomotion.
@@ -134,16 +157,18 @@ Therefore, we propose \textbf{SwimGym}: a low-cost, open-source robot platform s
  
 \subsection{Robot Hardware and Experimental Testbed}
  
-Inspired by aquatic insects and turtles---whose propulsion rely on drag forces generated by rowing strokes---the SwimGym robot features a main body with servo-actuated fins and rudders. A gear assembly drives the fins symmetrically, while two miniature servos independently control each rudder via five-bar linkages for steering. The hardware assembly utilizes 3d-printed parts and commercially-available off-the-shelf (COTS) components as shown in Table~\ref{tab:parts_list}. The result is a low-cost (\$185) bill of material with an accessible fabrication process. An onboard, 7.4V battery powers the servos and onboard Adafruit Feather~M0 board, which integrates an ARM Cortex-M0 microcontroller with a low-power, long-range radio (LoRa) transceiver. This allows for truly untethered operation of the SwimGym robot while maintaining a stable, long-range wireless communication between the robot and a host computer.
+Inspired by aquatic insects and turtles---whose propulsion rely on drag forces generated by rowing strokes---the SwimGym robot features a main body with servo-actuated fins and rudders as shown in Fig.~\ref{fig:squid_hardware_setup}. A gear assembly drives the fins symmetrically, while two miniature servos independently control each rudder via five-bar linkages for steering. The hardware assembly utilizes 3d-printed parts and commercially-available off-the-shelf (COTS) components as shown in Table~\ref{tab:parts_list}. The result is a low-cost (\$185) bill of material with an accessible fabrication process. An onboard, 7.4V battery powers the servos and onboard Adafruit Feather~M0 board, which integrates an ARM Cortex-M0 microcontroller with a low-power, long-range radio (LoRa) transceiver. This allows for truly untethered operation of the SwimGym robot while maintaining a stable, long-range wireless communication between the robot and a host computer.
  
-To provide a portable swimming environment, we develop a low-cost experimental testbed consisting of a $122 \times 122 \times 40$\,cm pool and a vision-based tracking system as shown in Fig.~\ref{fig:swimgym_overview}. The vision-based system requires only a (cellphone) camera and computer, which can also send motor commands wirelessly to the robot via LoRa.
+To provide a portable swimming environment, we develop a low-cost experimental testbed consisting of a $122 \times 122 \times 40$\,cm pool and a vision-based tracking system. The vision-based system requires only a (cellphone) camera and computer, which can also send motor commands wirelessly to the robot via LoRa.
  
 \begin{figure*}[t]
     \centering
-    \includegraphics[width=\textwidth]{Figure/Figure2_11.pdf}
-    \caption{Hardware assembly of the SwimGym robot: a fully untethered swimmer with onboard power and microcontroller board. Servo motors drive fins for drag-based propulsion while rudders can be used to provide steering. Labels for each numbered part can be found in Table~\ref{tab:parts_list}.}
-    \label{fig:hardware}
+    \includegraphics[width=\textwidth]{figs/hardware/Fig4.png}
+    \caption{Hardware-experiment setup for sim-to-real validation of a squid-like robot swimming in an initially-still-water environment. A real-world squid-like swimming robot is designed from the ground up to be untethered with an onboard battery, microcontroller, and radio transceiver. The robot's servo motor drives the fins to the desired angle, $\phi$. In this study, a computer sends motor commands over radio to the robot to execute an undulating, forward-swimming gait. The robot-configuration trajectory is tracked by a top-down-facing camera via an ArUco marker.}
+    \label{fig:squid_hardware_setup}
 \end{figure*}
+
+Figure~\ref{fig:squid_hardware_setup} shows how the same sim-to-real validation philosophy is applied to the drag-swimming platform. The robot remains fully untethered during each trial, while the host computer only supplies the desired open-loop motor commands over radio. This separation between onboard actuation and external tracking makes the measured trajectory a direct consequence of the fluid--robot interaction rather than a tethered test artifact.
  
 \begin{table}
 \centering
@@ -181,11 +206,11 @@ To provide a portable swimming environment, we develop a low-cost experimental t
  
 To facilitate sim-to-real studies, we develop a simulated gym environment replicating our testbed. To do so, we leverage variational mechanics to develop a Navier-Stokes-based fluid-structure interaction solver for robotics~\cite{lee2025unifiedframeworksimulatingstronglycoupled}. We reduce the sim-to-real gap by incorporating CAD-calculated mass properties into the simulation model.
  
-To validate our simulator, we perform a sim-to-real demonstration of a forward-swimming gait. As shown in Fig.~\ref{fig:simtoreal}, SwimGym's simulator is able to properly simulate the forward-swimming behavior consistent with the demonstration on hardware. Meanwhile, Genesis~\cite{genesis}, a state-of-the-art world simulator for robotics, is unable to simulate the achieved forward motion. Specifically, our framework achieves an RMSE error of 0.89~cm over the whole trajectory, a 90\% improvement over Genesis (8.86~cm RMSE error).
+To validate our simulator, we perform a sim-to-real demonstration of a forward-swimming gait. As shown in Fig.~\ref{fig:squid_simtoreal}, SwimGym's simulator is able to properly simulate the forward-swimming behavior consistent with the demonstration on hardware. Meanwhile, Genesis~\cite{genesis}, a state-of-the-art world simulator for robotics, is unable to simulate the achieved forward motion. Specifically, our framework achieves an RMSE error of 0.89~cm over the whole trajectory, a 90\% improvement over Genesis (8.86~cm RMSE error).
  
 \begin{figure}[t]
     \centering
-    \includegraphics[width=\columnwidth]{Figure/Figure6_02.pdf}
-    \caption{Sim-to-real validation of the SwimGym robot executing an open-loop swimming gait in initially-still water. Our multiphysics simulator (\textcolor{green}{green}) is able to model the propulsion resulting from the fluid-robot interaction unlike the particle-based baseline in Genesis (black).}
-    \label{fig:simtoreal}
+    \includegraphics[width=\columnwidth]{figs/hardware/Fig5.png}
+    \caption{Sim-to-real validation of a squid-like robot executing an open-loop swimming gait in initially-still water. (a) Trajectory visualizations of the robot executing a forward-swimming gait. The top row shows the real robot, while the middle row is our method and the bottom row is a particle-based simulation. (b) Time history of the robot position in the corresponding forward-swimming direction. Our unified-multiphysics approach (green) is able to model the propulsion resulting from the fluid-robot interaction unlike the particle-based baseline in Genesis (black).}
+    \label{fig:squid_simtoreal}
 \end{figure}
